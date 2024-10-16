@@ -4,6 +4,12 @@ mat-toolbar {
   color: var(--mat-stepper-header-selected-state-icon-foreground-color);//white
 }
 
+mat-toolbar mat-icon{
+  background: var(--mat-stepper-header-selected-state-icon-background-color) ;//#004a9f;
+  //background: var(--primary-color);//#004a9f;
+  color: var(--mat-stepper-header-selected-state-icon-foreground-color);//white
+}
+
 mat-sidenav {
   margin: 16px;
   width: 200px;
@@ -16,18 +22,20 @@ mat-sidenav {
 }
 
 .content {
-  height: calc(100vh - 130px);
+  height: calc(100vh - 116px);
   border-radius: 10px;
-  margin: 16px;
-  margin-left: 32px;
+  margin: 0px;
 
-  padding: 16px;
+  padding-top: 16px;
+  padding-right: 16px;
+  padding-left: 32px;
+  padding-bottom: 16px;
 
   overflow: auto;
 }
 
-mat-sidenav-container {
-  height: calc(100vh - 65px);
+mat-sidenav-content {
+  height: calc(100vh - 80px);
 }
 
 .menu-button {
@@ -35,7 +43,8 @@ mat-sidenav-container {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-size: 1rem;
+  //font-size: 1rem;
+  //color: white !important;
 
   mat-icon {
     margin-right: 8px;

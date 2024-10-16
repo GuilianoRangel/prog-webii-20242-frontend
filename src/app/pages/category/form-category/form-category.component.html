@@ -1,0 +1,25 @@
+<mat-card>
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="form"
+  >
+  <mat-card-content>
+        <mat-form-field>
+          <mat-label>Nome:</mat-label>
+          <input matInput formControlName="name">
+          <mat-error *ngIf="handleError('name', 'required')">
+            O nome da categoria é obrigatório
+          </mat-error>
+        </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="my-mat-tab-actions">
+      <button mat-raised-button color="warn" type="button" (click)="cancelar()" >Cancelar</button>
+      <button mat-raised-button color="primary" type="submit">Salvar</button>
+    </div>
+  </mat-card-actions>
+  </form>
+</mat-card>
+
+

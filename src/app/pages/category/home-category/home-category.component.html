@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title>
+    <div class="form-mat-card-title">
+      <div>
+        Manutenção de Category ( {{crudAction.labelAction}} )
+      </div>
+      <button mat-button mat-raised-button color="primary"
+              [routerLink]="['/category','new']"
+              class="align-right"
+              *ngIf="crudAction.isActionList()"
+      >
+        ADICIONAR
+      </button>
+    </div>
+  </mat-card-title>
+</mat-card>
+<mat-card>
+  <mat-card-content>
+    <router-outlet/>
+  </mat-card-content>
+</mat-card>
