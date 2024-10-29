@@ -46,10 +46,6 @@ export class AuthenticationComponent {
 
         this.securityService.init(user);
         this.router.navigate(['/']);
-      }, (error: any) => {
-        console.log('erro', error);
-        alert(error);
-        // }
       });
     }
   }
