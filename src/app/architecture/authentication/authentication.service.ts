@@ -14,11 +14,11 @@ export class AuthenticationService {
   }
 
   public login(authDto: AuthDto): Observable<CredencialDto> {
-    return this.authService.authControllerLogin({body: authDto});
+    return this.authService.login({body: authDto});
   }
 
   public refresh(refreshToken: string): Observable<any> {
-    return this.authService.authControllerRefresh({refreshToken});
+    return this.authService.refresh({refreshToken});
   }
 
 }
