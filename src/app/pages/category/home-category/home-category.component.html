@@ -1,12 +1,12 @@
 <mat-card>
   <mat-card-title>
     <div class="form-mat-card-title">
-      <div>
+      <div class="flex-grow-sm">
         Manutenção de Category ( {{crudAction.labelAction}} )
       </div>
       <button mat-button mat-raised-button color="primary"
-              [routerLink]="['/category','new']"
-              class="align-right"
+              [routerLink]="[baseURL,CategoryPaths.RELATIVE_NEW]"
+              class="flex-grow-sm"
               *ngIf="crudAction.isActionList() && HAS_PERMISSION_CREATE"
       >
         ADICIONAR

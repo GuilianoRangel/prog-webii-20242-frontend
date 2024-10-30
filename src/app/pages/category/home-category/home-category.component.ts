@@ -30,4 +30,5 @@ export class HomeCategoryComponent extends BaseComponent<CategoryDto>{
   }
 
   protected readonly CategoryRoles = CategoryRoles;
+  protected readonly CategoryPaths = CategoryPaths;
 }
