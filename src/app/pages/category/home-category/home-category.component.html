@@ -7,7 +7,7 @@
       <button mat-button mat-raised-button color="primary"
               [routerLink]="['/category','new']"
               class="align-right"
-              *ngIf="crudAction.isActionList()"
+              *ngIf="crudAction.isActionList() && HAS_PERMISSION_CREATE"
       >
         ADICIONAR
       </button>

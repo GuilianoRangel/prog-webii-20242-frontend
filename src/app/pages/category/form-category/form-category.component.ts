@@ -1,36 +1,21 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {Component} from '@angular/core';
 import {CategoryControllerService} from "../../../api/services/category-controller.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MessageService} from "../../../architecture/message/message.service";
 import {BaseComponent} from "../../../architecture/component/base.component";
-import {CrudActionService} from "../../../architecture/component/crud-action.service";
-import {ErrorService} from "../../../architecture/error.service";
+import {CategoryDto} from "../../../api/models/category-dto";
+import {CategoryPaths} from "../category-routing.module";
 
 @Component({
   selector: 'app-form-category',
   templateUrl: './form-category.component.html',
   styleUrl: './form-category.component.scss'
 })
-export class FormCategoryComponent extends BaseComponent{
-
-  //public formGroup!: FormGroup;
-  public baseURL = "/category";
+export class FormCategoryComponent extends BaseComponent<CategoryDto>{
 
   constructor(
-    public override route: ActivatedRoute,
-    public override router: Router,
-    protected override changeDetector: ChangeDetectorRef,
-    protected override crudActionService: CrudActionService,
-    private formBuilder: FormBuilder,
     public categoryService: CategoryControllerService,
-    public messageService: MessageService,
-    public errorService: ErrorService,
-
   ) {
-    super(route, router, changeDetector, crudActionService);
+    super();
     this.createForm();
-    //adicionado depois
     this.retriveAlterData()
   }
 
@@ -42,17 +27,6 @@ export class FormCategoryComponent extends BaseComponent{
 
   onSubmit() {
     console.log("formGroup", this.formGroup);
-   /* this.categoryService.categoryControllerCreate({body: this.formGroup.value})
-      .subscribe({
-        next: returnValue => {
-          this.messageService.addMsgSuccess("Categoria(Nome: "+returnValue.name+") incluída com sucesso!");
-          this.router.navigate(['/category']);
-        },
-      error: err => {
-          this.messageService.addMsgDanger("Erro ao incluir categoria: "+err.error.message);
-      }});*/
-
-    //alterado depois
 
     if(this.formGroup.valid) {
       if (!this.pkValue) {
@@ -84,42 +58,27 @@ export class FormCategoryComponent extends BaseComponent{
     }
   }
 
-  //passou para o componente base
-  /*public handleError = (controlName: string, errorName: string) => {
-    return this.formGroup.controls[controlName].hasError(errorName);
-  };*/
-
-  cancelar() {
-      let confirmed = false;
-
-      if (this.crudAction.isActionView()) {
-      this.router.navigateByUrl(this.baseURL);
-      confirmed = true;
-    }
-
-    if ( !confirmed ) {
-      this.messageService.addConfirmYesNo('Confirmar operação?', () => {
-        this.router.navigateByUrl(this.baseURL);
-      });
-    }
-  }
-
   private retriveAlterData() {
     const paramId = this.route.snapshot.paramMap.get('id');
     if (paramId){
       const codigo = parseInt(paramId);
-      console.log("codigo",paramId);
       this.errorService.handleLocalError();
       this.categoryService.categoryControllerGetById({id: codigo}).subscribe({
         next: returnValue => {
-          console.log("retorno", returnValue);
           this.pkValue = returnValue.id;
-          this.formGroup.patchValue(returnValue);
+          this.model = returnValue;
         },
         error: error => {
           this.messageService.addMsgWarning(`Erro ao buscar ID: ${codigo}, mensagem: ${error.error.message}`);
         }
       });
     }
+  }
+
+  override getBaseURL(): string {
+    return CategoryPaths.BASE;
+  }
+  protected override setFormCustomFields(userDto: CategoryDto): void {
+    //Utilizado quando se precisa definir algum campo quando se atribui a atributo this.base
   }
 }

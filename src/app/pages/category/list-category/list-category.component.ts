@@ -2,26 +2,31 @@ import {Component, OnInit} from '@angular/core';
 import {CategoryControllerService} from "../../../api/services/category-controller.service";
 import {CategoryDto} from "../../../api/models/category-dto";
 import {MatTableDataSource} from "@angular/material/table";
-import {MessageService} from "../../../architecture/message/message.service";
+import {BaseComponent} from "../../../architecture/component/base.component";
+import {CategoryPaths, CategoryRoles} from "../category-routing.module";
 
 @Component({
   selector: 'app-list-category',
   templateUrl: './list-category.component.html',
   styleUrl: './list-category.component.scss'
 })
-export class ListCategoryComponent implements OnInit {
+export class ListCategoryComponent extends BaseComponent<CategoryPaths> implements OnInit {
   dataSource: MatTableDataSource<CategoryDto> = new MatTableDataSource<CategoryDto>([]);
   displayedColumns =  ['id', 'name', 'action'];
 
+  public HAS_PERMISSION_UPDATE: boolean;
+  public HAS_PERMISSION_DELETE: boolean;
+
   constructor(
       public service: CategoryControllerService,
-      public messageService: MessageService
   ) {
+    super();
+    this.getData();
+    this.HAS_PERMISSION_UPDATE = this.securityService.hasRoles(CategoryRoles.UPDATE);
+    this.HAS_PERMISSION_DELETE = this.securityService.hasRoles(CategoryRoles.DELETE);
+
   }
 
-  ngOnInit(): void {
-    this.getData();
-  }
 
   private getData() {
     this.service.categoryControllerListAll().subscribe(data => {
@@ -35,6 +40,7 @@ export class ListCategoryComponent implements OnInit {
       this.remover(categoryDto);
     });
   }
+
   remover(categoryDto: CategoryDto) {
     this.service.categoryControllerRemove({id: categoryDto.id || 0})
       .subscribe({next: returnValue => {
@@ -50,4 +56,13 @@ export class ListCategoryComponent implements OnInit {
         }
       });
   }
+
+  getBaseURL(): string {
+    return CategoryPaths.CATEGORY_PATH;
+  }
+
+  protected setFormCustomFields(userDto: CategoryPaths): void {
+  }
+
+  protected readonly CategoryRoles = CategoryRoles;
 }

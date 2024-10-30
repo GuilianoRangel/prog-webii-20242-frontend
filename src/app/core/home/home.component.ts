@@ -6,6 +6,7 @@ import {delay} from "rxjs";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {filter} from "rxjs/operators";
 import {SecurityService} from "../../architecture/security/security.service";
+import {CategoryRoles} from "../../pages/category/category-routing.module";
 
 @UntilDestroy()
 @Component({
@@ -17,11 +18,11 @@ export class HomeComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  public hasReadAllPermission;
+  public HAS_PERMISSION_READ_ALL;
 
   constructor(public securityService: SecurityService,
               private observer: BreakpointObserver, private router: Router) {
-    this.hasReadAllPermission = securityService.hasRoles('ROLE_CATEGORY_READ_ALL');
+    this.HAS_PERMISSION_READ_ALL = securityService.hasRoles([CategoryRoles.READ_ALL, CategoryRoles.READ_ALL]);
   }
 
 
