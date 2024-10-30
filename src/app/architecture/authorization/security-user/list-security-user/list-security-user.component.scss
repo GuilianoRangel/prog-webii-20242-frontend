@@ -1,0 +1,9 @@
+@import "../home-security-user/home-security-user.component";
+mat-card{
+  box-shadow: none;
+}
+
+.fix-col-sm {
+  min-width: 116px;
+  max-width: 116px;
+}

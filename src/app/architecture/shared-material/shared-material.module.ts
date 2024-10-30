@@ -13,6 +13,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatInputModule,
     MatCardModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
   ],
   exports: [
     CommonModule,
@@ -51,7 +55,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatInputModule,
     MatCardModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatPaginatorModule,
   ]
 })
 export class SharedMaterialModule { }

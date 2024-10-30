@@ -1,0 +1,31 @@
+.menu-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: var(--mdc-text-button-label-text-color); /* Ajuste de cor */
+
+  mat-icon {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04); /* Ajuste de hover para suavidade */
+  }
+}
+
+/* Submenu escondido por padrão */
+.submenu {
+  display: none;
+}
+
+/* Submenu exibido quando aberto */
+.submenu-open {
+  display: block;
+}
+
+.submenu-button {
+  width: 100%;
+  padding-left: 0px;
+  color: var(--mdc-text-button-label-text-color); /* Cor para submenus */
+}

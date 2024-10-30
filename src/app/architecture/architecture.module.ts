@@ -6,11 +6,12 @@ import {ArchitectureService} from "./architecture.service";
 import {MessageService} from "./message/message.service";
 import {MessageModule} from "./message/message.module";
 import {LoaderModule} from "./loader/loader.module";
-import {A} from "@angular/cdk/keycodes";
-import {AuthenticationService} from "./authentication/authentication.service";
 import {AuthenticationModule} from "./authentication/authentication.module";
 import {SecurityInterceptor} from "./security/security.interceptor";
 import {HttpErrorInterceptor} from "./http-error.interceptor";
+import {AuthorizationModule} from "./authorization/authorization.module";
+import {MatPaginatorIntl} from "@angular/material/paginator";
+import {getPtBrPaginatorIntl} from "./component/portuguese-mat-paginator-intl";
 
 
 @NgModule({
@@ -19,7 +20,11 @@ import {HttpErrorInterceptor} from "./http-error.interceptor";
     CommonModule,
     MessageModule,
     LoaderModule,
-    AuthenticationModule
+    AuthenticationModule,
+    AuthorizationModule,
+  ],
+  exports:[
+    AuthorizationModule
   ],
   providers: [
     ArchitectureService,
@@ -32,6 +37,7 @@ import {HttpErrorInterceptor} from "./http-error.interceptor";
     {provide: HTTP_INTERCEPTORS,              useClass: HttpErrorInterceptor, multi: true},
     //Interceptor para incluir token autenticação nas requisições.
     {provide: HTTP_INTERCEPTORS,              useClass: SecurityInterceptor, multi: true},
+    {provide: MatPaginatorIntl, useValue: getPtBrPaginatorIntl()}
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

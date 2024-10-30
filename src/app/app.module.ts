@@ -27,6 +27,7 @@ import {MessageModule} from "./architecture/message/message.module";
         ArchitectureModule,
         CategoryModule,
         SharedMaterialModule,
+        ArchitectureModule,
 
 
         SecurityModule.forRoot({
