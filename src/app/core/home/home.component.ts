@@ -52,4 +52,9 @@ export class HomeComponent {
       });
   }
 
+  sair() {
+    this.securityService.invalidate();
+    this.router.navigate(['/auth']);
+  }
+
 }
