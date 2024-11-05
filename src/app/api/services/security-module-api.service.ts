@@ -11,8 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { getModulosAtivos } from '../fn/modulo-sistema-api/get-modulos-ativos';
-import { GetModulosAtivos$Params } from '../fn/modulo-sistema-api/get-modulos-ativos';
+import { getActiveModules } from '../fn/security-module-api/get-active-modules';
+import { GetActiveModules$Params } from '../fn/security-module-api/get-active-modules';
 import { SecurityModuleDto } from '../models/security-module-dto';
 
 
@@ -20,36 +20,36 @@ import { SecurityModuleDto } from '../models/security-module-dto';
  * Informações dos Modulos do Sistema
  */
 @Injectable({ providedIn: 'root' })
-export class ModuloSistemaApiService extends BaseService {
+export class SecurityModuleApiService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
   }
 
-  /** Path part for operation `getModulosAtivos()` */
-  static readonly GetModulosAtivosPath = '/api/v1/modules/active-modules';
+  /** Path part for operation `getActiveModules()` */
+  static readonly GetActiveModulesPath = '/api/v1/modules/active-modules';
 
   /**
    * Retorna uma lista de Módulos ativos.
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getModulosAtivos()` instead.
+   * To access only the response body, use `getActiveModules()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getModulosAtivos$Response(params?: GetModulosAtivos$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SecurityModuleDto>>> {
-    return getModulosAtivos(this.http, this.rootUrl, params, context);
+  getActiveModules$Response(params?: GetActiveModules$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SecurityModuleDto>>> {
+    return getActiveModules(this.http, this.rootUrl, params, context);
   }
 
   /**
    * Retorna uma lista de Módulos ativos.
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getModulosAtivos$Response()` instead.
+   * To access the full response (for headers, for example), `getActiveModules$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getModulosAtivos(params?: GetModulosAtivos$Params, context?: HttpContext): Observable<Array<SecurityModuleDto>> {
-    return this.getModulosAtivos$Response(params, context).pipe(
+  getActiveModules(params?: GetActiveModules$Params, context?: HttpContext): Observable<Array<SecurityModuleDto>> {
+    return this.getActiveModules$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<SecurityModuleDto>>): Array<SecurityModuleDto> => r.body)
     );
   }

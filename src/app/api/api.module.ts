@@ -15,7 +15,7 @@ import { StudentCrudControllerService } from './services/student-crud-controller
 import { CategoryControllerService } from './services/category-controller.service';
 import { AuthApiService } from './services/auth-api.service';
 import { ControllerHelloWorldService } from './services/controller-hello-world.service';
-import { ModuloSistemaApiService } from './services/modulo-sistema-api.service';
+import { SecurityModuleApiService } from './services/security-module-api.service';
 
 /**
  * Module that provides all services and configuration.
@@ -34,7 +34,7 @@ import { ModuloSistemaApiService } from './services/modulo-sistema-api.service';
     CategoryControllerService,
     AuthApiService,
     ControllerHelloWorldService,
-    ModuloSistemaApiService,
+    SecurityModuleApiService,
     ApiConfiguration
   ],
 })

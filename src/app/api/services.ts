@@ -11,4 +11,4 @@ export { StudentCrudControllerService } from './services/student-crud-controller
 export { CategoryControllerService } from './services/category-controller.service';
 export { AuthApiService } from './services/auth-api.service';
 export { ControllerHelloWorldService } from './services/controller-hello-world.service';
-export { ModuloSistemaApiService } from './services/modulo-sistema-api.service';
+export { SecurityModuleApiService } from './services/security-module-api.service';
