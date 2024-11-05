@@ -49,11 +49,11 @@
               <mat-label>Status</mat-label>
               <input matInput name="status" formControlName="status" style="display: none">
               <mat-slide-toggle formControlName="status" name="status" (change)="alterUserStatus(model)"
-                                *ngIf="crudAction.isActionAlter() && HAS_PERMISSION_ACTIVATE_INACTIVATE"
+                                *ngIf="(crudAction.isActionView() || crudAction.isActionAlter()) && HAS_PERMISSION_ACTIVATE_INACTIVATE"
                                 title="{{ formGroup.value.statusLabel }}">
               </mat-slide-toggle>
               <input matInput name="statusLabel" formControlName="statusLabel"
-                     *ngIf="crudAction.isActionView() || crudAction.isActionAlter() && !HAS_PERMISSION_ACTIVATE_INACTIVATE" [readonly]="true">
+                     *ngIf="crudAction.isActionAlter() && !HAS_PERMISSION_ACTIVATE_INACTIVATE" [readonly]="true">
             </mat-form-field>
           </div>
 
