@@ -40,6 +40,10 @@ export class FormSecurityGroupComponent   extends BaseComponent<SecurityGroupDto
     this.pkValue = this.route.snapshot.params['id'] ? +this.route.snapshot.params['id'] : null;
 
     this.loadModules();
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
 
     if (this.pkValue) {
       this.loadGroup();
@@ -74,6 +78,7 @@ export class FormSecurityGroupComponent   extends BaseComponent<SecurityGroupDto
   // Cria um FormGroup para cada SecurityModuleDto
   createModuleFormGroup(module: SecurityModuleDto): FormGroup {
     return this.formBuilder.group({
+      visible: [true],
       allChecked: [module.allChecked || false],
       features: this.formBuilder.array(module.features ? module.features.map(f => this.createFeatureFormGroup(f)) : []),
       id: [module.id || ''],
@@ -104,8 +109,7 @@ export class FormSecurityGroupComponent   extends BaseComponent<SecurityGroupDto
 
   loadGroup(): void {
     this.service.securityGroupControllerGetById({id: this.pkValue||0}).subscribe(group => {
-      this.formGroup.patchValue(group);
-      //this.checkFeatures();
+      this.model = group;
 
       if (this.crudAction.isActionView()) {
         this.disableUserFormFields();
@@ -286,7 +290,7 @@ export class FormSecurityGroupComponent   extends BaseComponent<SecurityGroupDto
         },
           error: error => {
           this.setModules(this.securityModulesFiltered);
-          //this.checkFeatures();
+          setTimeout(() => this.checkFeatures());
         }
       });
     } else {
@@ -297,7 +301,7 @@ export class FormSecurityGroupComponent   extends BaseComponent<SecurityGroupDto
           },
           error: error => {
             this.setModules(this.securityModulesFiltered);
-            //this.checkFeatures();
+            setTimeout(() => this.checkFeatures());
           }
         });
     }
@@ -309,19 +313,18 @@ export class FormSecurityGroupComponent   extends BaseComponent<SecurityGroupDto
    * @param filtro
    */
   public filterModule() {
-    let modulesFormArray = this.formGroup.get("modules") as FormArray;
-    modulesFormArray.clear();
-
     const filter = this.formGroup.get('filterModule')?.value;
-    if (filter.length > 1) {
-      this.securityModulesFiltered = this.securityModules.filter(
-        moduloFiltrado => moduloFiltrado?.name?.toLowerCase().includes(filter.toLowerCase())
-      );
-    } else {
-      this.securityModulesFiltered = this.securityModules;
+
+    let formModuleGroups = this.formGroup.get('modules') as FormArray;
+    for(let i = 0; i <  formModuleGroups.length; i++ ) {
+      const formModuleGroup = formModuleGroups.at(i) as FormGroup;
+      let groupName = formModuleGroup.get('name')?.value as string;
+      if (groupName?.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
+        formModuleGroup.patchValue({visible: true});
+      } else {
+        formModuleGroup.patchValue({visible: false});
+      }
     }
-    this.setModules(this.securityModulesFiltered);
-    //this.checkFeatures();
   }
 
   getBaseURL(): string {

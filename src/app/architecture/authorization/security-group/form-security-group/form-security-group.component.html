@@ -58,7 +58,7 @@
       <div class="row wrap gap-sm permission-wrapper">
         <ng-container formArrayName="modules">
           <ng-container *ngFor="let moduloControl of modules.controls; let i = index">
-            <div  [formGroup]="convertToFormControl(moduloControl)" class="permission-card">
+            <div  [formGroup]="convertToFormControl(moduloControl)" class="permission-card" *ngIf="moduloControl.value.visible">
               <mat-card class="flex-1">
                 <mat-card-title>
                   <div class="row-fix flex-1 center-align gap-sm">
