@@ -44,7 +44,6 @@ export class SecurityService {
    * @param user
    */
   public init(user?: User): void {
-    console.log('security.service', user);
     this.credential.init(user);
 
     if (user) {
@@ -119,7 +118,6 @@ export class SecurityService {
    * @returns boolean
    */
   public isValid(): boolean {
-    console.log("isValid(),",this._credential);
     return this._credential.user !== undefined;
   }
 

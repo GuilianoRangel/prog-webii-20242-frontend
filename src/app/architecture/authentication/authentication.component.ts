@@ -31,7 +31,6 @@ export class AuthenticationComponent {
   }
 
   public onSubmit(): void {
-    console.log("onSubmit");
     if (this.formGroup.valid) {
       this.authenticationService.login(this.formGroup.value).subscribe((data: CredencialDto) => {
         const user: User = {

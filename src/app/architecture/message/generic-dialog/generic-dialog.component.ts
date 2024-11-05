@@ -35,7 +35,6 @@ export class GenericDialogComponent implements OnDestroy, AfterViewInit{
     @Inject(MAT_DIALOG_DATA) data: ConfirmationGenericDialogData,
     private cd: ChangeDetectorRef
   ) {
-    console.log("data:", data);
     this.item = data.item;
   }
 

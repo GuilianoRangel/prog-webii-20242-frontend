@@ -20,7 +20,7 @@ export class SecurityInterceptor implements HttpInterceptor {
    */
   constructor(
     private securityService: SecurityService
-    ) { console.log("Security Interceptor"); }
+    ) {  }
 
   /**
    * Método responsável por interceptar a requisição Http.
@@ -29,7 +29,6 @@ export class SecurityInterceptor implements HttpInterceptor {
    * @param next
    */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("Intercept", request.url);
     if (this.securityService.isValid()) {
       request = request.clone({
         setHeaders: {

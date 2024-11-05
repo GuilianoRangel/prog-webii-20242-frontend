@@ -26,8 +26,6 @@ export class FormCategoryComponent extends BaseComponent<CategoryDto>{
   }
 
   onSubmit() {
-    console.log("formGroup", this.formGroup);
-
     if(this.formGroup.valid) {
       if (!this.pkValue) {
         this.errorService.handleLocalError();

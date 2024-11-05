@@ -30,7 +30,6 @@ export class ListCategoryComponent extends BaseComponent<CategoryPaths> implemen
 
   private getData() {
     this.service.categoryControllerListAll().subscribe(data => {
-      console.log(data);
       this.dataSource = new MatTableDataSource<CategoryDto>(data || []);
     });
   }
@@ -51,7 +50,6 @@ export class ListCategoryComponent extends BaseComponent<CategoryPaths> implemen
             this.messageService.addMsgInf("Categória não existe mais.");
           } else {
             this.messageService.addMsgDanger("Erro ao excluir"+error.message);
-            console.log("Erro:", error);
           }
         }
       });
