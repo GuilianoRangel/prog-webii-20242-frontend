@@ -5,6 +5,7 @@ import {SharedMaterialModule} from "../shared-material/shared-material.module";
 import {RouterLink, RouterModule, RouterOutlet} from "@angular/router";
 import {authorizationRoutes} from "./authorization-routing.module";
 import {SecurityUserModule} from "./security-user/security-user.module";
+import {SecurityGroupModule} from "./security-group/security-group.module";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {SecurityUserModule} from "./security-user/security-user.module";
     CommonModule,
     SharedMaterialModule,
     SecurityUserModule,
+    SecurityGroupModule,
     RouterModule.forChild(authorizationRoutes),
     RouterLink,
     RouterOutlet

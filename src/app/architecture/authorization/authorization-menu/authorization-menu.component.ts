@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {SecurityService} from "../../security/security.service";
-import {AuthorizationModule} from "../authorization.module";
 import {AuthorizationPaths} from "../authorization-routing.module";
 import {SecurityUserRoles} from "../security-user/security-user-routing.module";
+import {SecurityGroupRoles} from "../security-group/security-group-routing.module";
 
 @Component({
   selector: 'authorization-menu',
@@ -12,16 +12,18 @@ import {SecurityUserRoles} from "../security-user/security-user-routing.module";
 export class AuthorizationMenuComponent {
   adminMenuOpen: boolean = false;
   public readonly routeLinkSecurityUser : string = AuthorizationPaths.SECURITY_USER;
+  public readonly routeLinkSecurityGroup: string = AuthorizationPaths.SECURITY_GROUP;
 
   public readonly HAS_SECURITYUSER_ACCESS: boolean;
+  public readonly HAS_SECURITYGROUP_ACCESS: boolean;
 
   constructor(public securityService: SecurityService) {
     this.HAS_SECURITYUSER_ACCESS = securityService.hasRoles([SecurityUserRoles.SEARCH,SecurityUserRoles.READ]);
+    this.HAS_SECURITYGROUP_ACCESS = securityService.hasRoles([SecurityGroupRoles.SEARCH,SecurityGroupRoles.READ]);
   }
 
   toggleAdminMenu() {
     this.adminMenuOpen = !this.adminMenuOpen;
   }
 
-  protected readonly SecurityUserRoles = SecurityUserRoles;
 }
