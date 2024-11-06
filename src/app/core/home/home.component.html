@@ -17,11 +17,17 @@
       <mat-icon>home</mat-icon>
       <span>Home</span>
     </button>
-    <button mat-button class="menu-button" routerLink="/category"
+    <button mat-button class="menu-button" [routerLink]="[CategoryPaths.LIST]"
       *ngIf="HAS_PERMISSION_READ_ALL"
     >
       <mat-icon>category</mat-icon>
       <span>Category</span>
+    </button>
+    <button mat-button class="menu-button" [routerLink]="[CategoryPopupPaths.LIST]"
+            *ngIf="HAS_PERMISSION_READ_ALL"
+    >
+      <mat-icon>category</mat-icon>
+      <span>Category popup</span>
     </button>
     <authorization-menu/>
     <button mat-button class="menu-button" routerLink="/about">

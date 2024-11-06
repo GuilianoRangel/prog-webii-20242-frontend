@@ -1,4 +1,4 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -7,14 +7,11 @@ import {HomeComponent} from './core/home/home.component';
 import {SharedMaterialModule} from "./architecture/shared-material/shared-material.module";
 import {CategoryModule} from "./pages/category/category.module";
 import {ArchitectureModule} from "./architecture/architecture.module";
-import {CommandModule} from "@angular/cli/src/command-builder/command-module";
-import {CommonModule} from "@angular/common";
-import {ReactiveFormsModule} from "@angular/forms";
-import {MatSidenavContainer} from "@angular/material/sidenav";
 import {SecurityModule} from "./architecture/security/security.module";
 import {environment} from "../environments/environment";
 import {ApiModule} from "./api/api.module";
 import {MessageModule} from "./architecture/message/message.module";
+import {CategoryPopupModule} from "./pages/category-popup/category-popup.module";
 
 @NgModule({
   declarations: [
@@ -26,6 +23,7 @@ import {MessageModule} from "./architecture/message/message.module";
         AppRoutingModule,
         ArchitectureModule,
         CategoryModule,
+        CategoryPopupModule,
         SharedMaterialModule,
         ArchitectureModule,
 

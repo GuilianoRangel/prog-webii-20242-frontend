@@ -6,7 +6,8 @@ import {delay} from "rxjs";
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {filter} from "rxjs/operators";
 import {SecurityService} from "../../architecture/security/security.service";
-import {CategoryRoles} from "../../pages/category/category-routing.module";
+import {CategoryPaths, CategoryRoles} from "../../pages/category/category-routing.module";
+import {CategoryPopupPaths} from "../../pages/category-popup/category-routing.module";
 
 @UntilDestroy()
 @Component({
@@ -57,4 +58,6 @@ export class HomeComponent {
     this.router.navigate(['/auth']);
   }
 
+  protected readonly CategoryPaths = CategoryPaths;
+  protected readonly CategoryPopupPaths = CategoryPopupPaths;
 }

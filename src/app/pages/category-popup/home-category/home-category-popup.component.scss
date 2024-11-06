@@ -1,0 +1,58 @@
+mat-card{
+  margin: 5px;
+}
+
+mat-card-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 0px 10px;
+  height: 50px;
+}
+
+.flex-grow-sm {
+  flex-grow: 1;
+}
+
+.example-container {
+  height: 85%;
+  width: 98%;
+  max-width: 100%;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-mdc-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-mdc-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
+}
+
+.id-column-width {
+  max-width: 52px;
+  width: 52px;
+}
+
+.btnEditar{
+  margin-left: 7px;
+}
+
+.action-column-width {
+  max-width: 128px;
+  width: 128px;
+  text-align: center;
+}
