@@ -8,7 +8,7 @@ import {ConfirmDialogComponent} from './confirm-mesage/confirm-dialog.component'
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
-//import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
+import { GenericDialogComponent } from './generic-dialog/generic-dialog.component';
 import {MatCardModule} from "@angular/material/card";
 
 /**
@@ -28,7 +28,7 @@ import {MatCardModule} from "@angular/material/card";
   declarations: [
     AlertMessageComponent,
     ConfirmDialogComponent,
-    //GenericDialogComponent
+    GenericDialogComponent
   ],
   exports: [
     AlertMessageComponent,

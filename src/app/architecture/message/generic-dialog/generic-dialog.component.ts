@@ -44,7 +44,7 @@ export class GenericDialogComponent implements OnDestroy, AfterViewInit{
   public onConfirmYesOk(): void {
     let ok = true;
     if(this.componentRef.instance instanceof BaseComponent){
-      let formGroup = (this.componentRef.instance as BaseComponent).formGroup;
+      let formGroup = (this.componentRef.instance as BaseComponent<any>).formGroup;
       ok = formGroup.valid;
       this.item.data = formGroup.value;
     }
@@ -59,7 +59,7 @@ export class GenericDialogComponent implements OnDestroy, AfterViewInit{
    */
   public onConfirmNo(): void {
     if(this.componentRef.instance instanceof BaseComponent){
-      let formGroup = (this.componentRef.instance as BaseComponent).formGroup;
+      let formGroup = (this.componentRef.instance as BaseComponent<any>).formGroup;
       this.item.data = formGroup.value;
     }
     this.dialogRef.close();
@@ -72,6 +72,7 @@ export class GenericDialogComponent implements OnDestroy, AfterViewInit{
     this.componentRef = this.dialogContainer.createComponent(this.item.dialog);
 
     this.componentRef.instance.data = this.item.data;
+    this.componentRef.instance.dialogComponent = this;
 
     this.cd.detectChanges();
     //this.componentRef.instance.output.subscribe(event => console.log(event));

@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 import {AuthenticationService} from "./authentication/authentication.service";
 import {User} from "./security/User";
 import {IConfig} from "./security/config";
-//import {GenericDialogComponent} from "./message/generic-dialog/generic-dialog.component";
+import {GenericDialogComponent} from "./message/generic-dialog/generic-dialog.component";
 
 @Injectable({
   providedIn: 'root'
@@ -47,12 +47,12 @@ export class ArchitectureService {
   }
 
   private addDialogItem(item: MessageDialog): void {
-    /*this.dialog.open(GenericDialogComponent, {
+    this.dialog.open(GenericDialogComponent, {
       minWidth: item.width,
       minHeight: item.height,
       disableClose: true,
       data: {item}
-    });*/
+    });
   }
 
   private initLoaderIntercept(){
