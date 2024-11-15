@@ -67,9 +67,10 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
-    this.pageSize = event.pageSize;
-    this.currentPage = event.pageIndex;
+    if(event){
+      this.pageSize = event.pageSize;
+      this.currentPage = event.pageIndex;
+    }
   }
 
   protected constructor(
