@@ -132,6 +132,8 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
       if(this._listMethod != undefined){
         return this._listMethod();
       }
+    }else{
+      this.paginator.page.emit();
     }
 
     return of([]);
