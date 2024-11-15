@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://exemploarquitetura.app.guiliano.com.br',
+  apiUrl: 'https://arqexemplo.app2.guiliano.com.br',
+  nameStorage: 'arqExemploSecurityStorage',
 };

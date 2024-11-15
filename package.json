@@ -7,7 +7,9 @@
     "start": "npm run ng-openapi-gen && npm run ng -- serve -o",
     "build": "npm run ng-openapi-gen && npm run ng -- build -prod",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "ng-openapi-gen-docker": "ng-openapi-gen -i https://arqexemplo.app2.guiliano.com.br/v3/api-docs",
+    "build-docker": "npm run ng-openapi-gen-docker && npm run ng -- build -c production"
   },
   "private": true,
   "dependencies": {
