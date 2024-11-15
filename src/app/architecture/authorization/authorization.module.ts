@@ -6,6 +6,7 @@ import {RouterLink, RouterModule, RouterOutlet} from "@angular/router";
 import {authorizationRoutes} from "./authorization-routing.module";
 import {SecurityUserModule} from "./security-user/security-user.module";
 import {SecurityGroupModule} from "./security-group/security-group.module";
+import {DocumentationModule} from "./documentation/documentation.module";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {SecurityGroupModule} from "./security-group/security-group.module";
     SharedMaterialModule,
     SecurityUserModule,
     SecurityGroupModule,
+    DocumentationModule,
     RouterModule.forChild(authorizationRoutes),
     RouterLink,
     RouterOutlet

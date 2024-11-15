@@ -36,6 +36,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/architecture/authorization/assets",
+                "output": "/authorization/assets"
               }
             ],
             "styles": [

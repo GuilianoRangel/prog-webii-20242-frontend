@@ -11,7 +11,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://arqexemplo.app2.guiliano.com.br';
+  rootUrl: string = 'http://localhost:8080';
 }
 
 /**

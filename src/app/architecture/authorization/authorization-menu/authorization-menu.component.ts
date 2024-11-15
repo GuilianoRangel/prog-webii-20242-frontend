@@ -13,6 +13,7 @@ export class AuthorizationMenuComponent {
   adminMenuOpen: boolean = false;
   public readonly routeLinkSecurityUser : string = AuthorizationPaths.SECURITY_USER;
   public readonly routeLinkSecurityGroup: string = AuthorizationPaths.SECURITY_GROUP;
+  public readonly routeLinkDocumentation: string = AuthorizationPaths.DOCUMENTATION;
 
   public readonly HAS_SECURITYUSER_ACCESS: boolean;
   public readonly HAS_SECURITYGROUP_ACCESS: boolean;
