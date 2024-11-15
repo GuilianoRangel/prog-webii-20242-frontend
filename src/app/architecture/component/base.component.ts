@@ -89,7 +89,7 @@ export abstract class BaseComponent<MODEL> implements OnInit, OnDestroy {
   cancelar() {
     let confirmed = false;
 
-    if (this.crudAction.isActionView()) {
+    if (this.crudAction.isActionView() || !this.formGroup.touched) {
       this.router.navigateByUrl(this.baseURL);
       confirmed = true;
     }
