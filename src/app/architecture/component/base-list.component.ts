@@ -32,6 +32,13 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
   private _listMethodPage?:  (params: {page: Pageable}, context?: HttpContext) => Observable<PageDto<MODEL>>;
   private _removeMethod: (params: { id: number }, context?: HttpContext) => Observable<MODEL>;
 
+  public setListMethodPage(method: (params: {page: Pageable}, context?: HttpContext) => Observable<PageDto<MODEL>>){
+    this._listMethodPage = method ;
+  }
+  public setListMethod(method: () => Observable<MODEL[]>){
+    this._listMethod = method;
+  }
+
   abstract getComponentConfigs(): BaseListComponentConfig<MODEL>;
 
 
@@ -163,7 +170,6 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
           startWith({}),
           switchMap(() => {
             if(this._listMethodPage!=undefined && this._useBackendPagination){
-              console.log(this.tableSort);
               let sortData = this.tableSort?.active ? [this.tableSort.active,this.tableSort.direction ] : undefined;
               return this._listMethodPage({
                 page: {
