@@ -15,6 +15,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatPaginatorModule,
+    MatSortModule,
   ],
   exports: [
     CommonModule,
@@ -58,6 +60,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatPaginatorModule,
+    MatSortModule,
   ]
 })
 export class SharedMaterialModule { }

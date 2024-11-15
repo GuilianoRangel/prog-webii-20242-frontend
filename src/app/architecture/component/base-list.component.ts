@@ -1,9 +1,9 @@
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {CrudAction} from "./curd-action";
-import {ChangeDetectorRef, inject, model, NgModule, OnDestroy, OnInit} from "@angular/core";
+import {AfterViewInit, ChangeDetectorRef, inject, model, NgModule, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {CrudActionService} from "./crud-action.service";
-import {Observable, Subscription} from "rxjs";
+import {merge, observable, Observable, of, startWith, Subscription, switchMap} from "rxjs";
 import {MessageService} from "../message/message.service";
 import {ErrorService} from "../error.service";
 import {SecurityService} from "../security/security.service";
@@ -14,17 +14,23 @@ import {BaseComponent} from "./base.component";
 import {GenericDto} from "../../api/models/generic-dto";
 import {TaskControllerRemove$Params} from "../../api/fn/task-controller/task-controller-remove";
 import {HttpContext} from "@angular/common/http";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {PageDto} from "./page-dto";
+import {Pageable} from "../../api/models/pageable";
+import {catchError, map} from "rxjs/operators";
 
 export type BaseListComponentConfig<MODEL extends GenericDto> = {
   ENTITY_NAME_LABEL: string;
   UPDATE_ROLE: string,
   DELETE_ROLE: string,
-  METHOD_LIST: () => Observable<MODEL[]>,
+  METHOD_LIST?: () => Observable<MODEL[]>,
+  METHOD_LIST_PAGED?: (params: {page: Pageable}, context?: HttpContext) => Observable<PageDto<MODEL>>,
   METHOD_REMOVE: (params: { id: number }, context?: HttpContext) => Observable<MODEL>
 };
 
 @NgModule()
-export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseComponent<MODEL>{
+export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseComponent<MODEL> implements AfterViewInit {
 
   dataSource: MatTableDataSource<MODEL> = new MatTableDataSource<MODEL>([]);
 
@@ -32,10 +38,49 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
   public HAS_PERMISSION_DELETE: boolean;
 
   private _entityNameLabel: string;
-  private _listMethod: () => Observable<MODEL[]>;
+  private _listMethod?: () => Observable<MODEL[]>;
+  private _listMethodPage?:  (params: {page: Pageable}, context?: HttpContext) => Observable<PageDto<MODEL>>;
   private _removeMethod: (params: { id: number }, context?: HttpContext) => Observable<MODEL>;
 
   abstract getComponentConfigs(): BaseListComponentConfig<MODEL>;
+
+
+  protected _useBackendPagination: boolean = false;
+  totalRows = 0;
+  pageSize = 10;
+  currentPage = 0;
+  pageSizeOptions: number[] = [2, 5, 10, 25, 100];
+
+  public abstract paginator: MatPaginator;
+
+  public abstract tableSort: MatSort;
+
+
+  ngAfterViewInit() {
+
+    if(this.paginator == undefined){
+      console.warn("Caso deseje utilizar paginação: Declare o atributo paginator na classe filha com  '@ViewChild(MatPaginator) paginator!: MatPaginator;'")
+    }else{
+      this.dataSource.paginator = this.paginator;
+      this.initObservablePageGetData();
+    }
+
+    if(this.tableSort){
+      this.dataSource.sort = this.tableSort;
+    }else{
+      console.warn("Caso deseje utilizar ordenação: Declare o atributo tableSort na classe filha com  '@ViewChild(MatSort) tableSort!: MatSort;'")
+    }
+  }
+
+  showResult($event: any[]) {
+    this.confDataResult($event);
+  }
+
+  pageChanged(event: PageEvent) {
+    console.log({ event });
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+  }
 
   protected constructor(
   ) {
@@ -46,6 +91,13 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
     this.HAS_PERMISSION_UPDATE = this.securityService.hasRoles(componentConfigs.UPDATE_ROLE);
     this._removeMethod = componentConfigs.METHOD_REMOVE;
     this._listMethod = componentConfigs.METHOD_LIST;
+    this._listMethodPage = componentConfigs.METHOD_LIST_PAGED;
+    if(this._listMethodPage == undefined && this._listMethod == undefined){
+      throw "Defina nas configurações do componente METHOD_LIST_PAGED ou METHOD_LIST";
+    }
+    if(this._listMethodPage != undefined){
+      this._useBackendPagination = true;
+    }
   }
 
   override ngOnInit() {
@@ -79,15 +131,72 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
     return this._removeMethod({id: id})
   };
 
-  private getData() {
+  protected getData() {
     this.getModelData().subscribe(data => {
-      this.dataSource = new MatTableDataSource<MODEL>(data || []);
+      this.confDataResult(data || [])
     });
   }
 
   public getModelData():Observable<MODEL[]>{
-    return this._listMethod();
+    if(!this._useBackendPagination){
+      if(this._listMethod != undefined){
+        return this._listMethod();
+      }
+    }
+
+    return of([]);
   }
 
+  private confDataResult(data: any[] ) {
 
+    this.totalRows = data?.length || 0;
+    this.currentPage = 0;
+    this.dataSource = new MatTableDataSource<MODEL>(data);
+    this.dataSource.paginator = this.paginator;
+    if(this.paginator){
+      this.paginator.length = this.totalRows;
+    }
+
+    if(this.tableSort){
+      this.dataSource.sort = this.tableSort;
+      this.tableSort.disableClear = true;
+    }
+  }
+
+  private initObservablePageGetData() {
+    if(this._listMethodPage != undefined){
+      merge(this.paginator.page, this.tableSort.sortChange)
+        .pipe(
+          startWith({}),
+          switchMap(() => {
+            if(this._listMethodPage!=undefined && this._useBackendPagination){
+              console.log(this.tableSort);
+              let sortData = this.tableSort?.active ? [this.tableSort.active,this.tableSort.direction ] : undefined;
+              return this._listMethodPage({
+                page: {
+                  page: this.paginator.pageIndex,
+                  size: this.paginator.pageSize,
+                  sort: sortData
+                },
+              })
+                .pipe(catchError(() => of(null)));
+            }
+            return of(null);
+          }),
+          map((data) => {
+            console.log("pageData:",data);
+            if (data == null ) return [];
+
+            this.totalRows = data.totalElements || 0;
+            this.pageSize = data.size || 0;
+
+            return data?.content;
+          })
+        )
+        .subscribe((data) => {
+          this.dataSource = new MatTableDataSource<MODEL>(data);
+        });
+    }
+
+  }
 }
