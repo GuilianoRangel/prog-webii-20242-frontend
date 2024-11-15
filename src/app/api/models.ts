@@ -7,6 +7,7 @@ export { AuthUserDto } from './models/auth-user-dto';
 export { CategoryDto } from './models/category-dto';
 export { CredencialDto } from './models/credencial-dto';
 export { FieldResponse } from './models/field-response';
+export { GenericDto } from './models/generic-dto';
 export { GroupStatisticsDto } from './models/group-statistics-dto';
 export { MessageResponse } from './models/message-response';
 export { PersonDataDto } from './models/person-data-dto';
