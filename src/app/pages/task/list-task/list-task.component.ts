@@ -60,5 +60,21 @@ export class ListTaskComponent  extends BaseListComponent<TaskDto> {
   }
 
   protected readonly TaskPaths = TaskPaths;
+
+  tarefasPendentes: boolean = false;
+
+  changeTarefasPendentes() {
+    if(this.tarefasPendentes){
+      this.setListMethodPage(
+        (params, context) => this.service.taskControllerListIncompletePage(params, context)
+      );
+      this.paginator.page.emit();
+    }else {
+      this.setListMethodPage(
+        (params, context) => this.service.taskControllerListAllPage(params, context)
+      );
+      this.paginator.page.emit();
+    }
+  }
 }
 
