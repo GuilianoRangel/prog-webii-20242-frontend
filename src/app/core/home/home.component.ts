@@ -8,6 +8,7 @@ import {filter} from "rxjs/operators";
 import {SecurityService} from "../../architecture/security/security.service";
 import {CategoryPaths, CategoryRoles} from "../../pages/category/category-routing.module";
 import {CategoryPopupPaths} from "../../pages/category-popup/category-routing.module";
+import {TaskPaths} from "../../pages/task/task-routing.module";
 
 @UntilDestroy()
 @Component({
@@ -60,4 +61,5 @@ export class HomeComponent {
 
   protected readonly CategoryPaths = CategoryPaths;
   protected readonly CategoryPopupPaths = CategoryPopupPaths;
+    protected readonly TaskPaths = TaskPaths;
 }

@@ -1,0 +1,50 @@
+<mat-card>
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="onSubmit()"
+    class="form"
+  >
+    <mat-card-content>
+      <div class="form-container">
+        <mat-form-field class="first-field" >
+          <mat-label>Descrição:</mat-label>
+          <input matInput formControlName="description">
+          <mat-error *ngIf="handleError('description', 'required')">
+            O Descrição da tarefa é obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="second-field">
+          <mat-label>Data Final:</mat-label>
+
+          <input matInput [matDatepicker]="picker" formControlName="dueDate">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="handleError('dueDate', 'matDatepickerParse')">
+            Data no formato errado!
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="second-field">
+          <mat-label>Categoria:</mat-label>
+          <mat-select formControlName="category_id">
+            <mat-option *ngFor="let option of categories" [value]="option.id">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="handleError('category_id', 'required')">
+            O Categoria da task é obrigatório
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="my-mat-tab-actions">
+        <button mat-raised-button color="warn" type="button" (click)="confirmDelete(model)" *ngIf="crudAction.isActionAlter()||crudAction.isActionView()">Excluir</button>
+        <button mat-raised-button color="warn" type="button" (click)="cancelar()" >Cancelar</button>
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>
+
+

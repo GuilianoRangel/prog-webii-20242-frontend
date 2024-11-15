@@ -1,0 +1,20 @@
+mat-card{
+  box-shadow: none;
+}
+mat-form-field{
+  width: 100%;
+}
+
+.form-container {
+  display: flex;
+}
+
+.first-field {
+  flex: 0 0 40%; /* 60% da largura disponível */
+  margin-right: 16px; /* Espaçamento entre os campos */
+}
+
+.second-field {
+  flex: 0 0 28%; /* 40% da largura disponível */
+  margin-right: 16px;
+}

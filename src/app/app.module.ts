@@ -12,6 +12,7 @@ import {environment} from "../environments/environment";
 import {ApiModule} from "./api/api.module";
 import {MessageModule} from "./architecture/message/message.module";
 import {CategoryPopupModule} from "./pages/category-popup/category-popup.module";
+import {TaskModule} from "./pages/task/task.module";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {CategoryPopupModule} from "./pages/category-popup/category-popup.module"
         ArchitectureModule,
         CategoryModule,
         CategoryPopupModule,
+        TaskModule,
         SharedMaterialModule,
         ArchitectureModule,
 
