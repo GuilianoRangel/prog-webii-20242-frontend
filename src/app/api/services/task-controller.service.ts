@@ -11,14 +11,21 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { taskControllerComplated } from '../fn/task-controller/task-controller-complated';
-import { TaskControllerComplated$Params } from '../fn/task-controller/task-controller-complated';
+import { PageTaskDto } from '../models/page-task-dto';
+import { taskControllerCompleted } from '../fn/task-controller/task-controller-completed';
+import { TaskControllerCompleted$Params } from '../fn/task-controller/task-controller-completed';
 import { taskControllerCreate } from '../fn/task-controller/task-controller-create';
 import { TaskControllerCreate$Params } from '../fn/task-controller/task-controller-create';
 import { taskControllerGetById } from '../fn/task-controller/task-controller-get-by-id';
 import { TaskControllerGetById$Params } from '../fn/task-controller/task-controller-get-by-id';
 import { taskControllerListAll } from '../fn/task-controller/task-controller-list-all';
 import { TaskControllerListAll$Params } from '../fn/task-controller/task-controller-list-all';
+import { taskControllerListAllPage } from '../fn/task-controller/task-controller-list-all-page';
+import { TaskControllerListAllPage$Params } from '../fn/task-controller/task-controller-list-all-page';
+import { taskControllerListIncomplete } from '../fn/task-controller/task-controller-list-incomplete';
+import { TaskControllerListIncomplete$Params } from '../fn/task-controller/task-controller-list-incomplete';
+import { taskControllerListIncompletePage } from '../fn/task-controller/task-controller-list-incomplete-page';
+import { TaskControllerListIncompletePage$Params } from '../fn/task-controller/task-controller-list-incomplete-page';
 import { taskControllerRemove } from '../fn/task-controller/task-controller-remove';
 import { TaskControllerRemove$Params } from '../fn/task-controller/task-controller-remove';
 import { taskControllerUpdate } from '../fn/task-controller/task-controller-update';
@@ -176,36 +183,123 @@ export class TaskControllerService extends BaseService {
     );
   }
 
-  /** Path part for operation `taskControllerComplated()` */
-  static readonly TaskControllerComplatedPath = '/api/v1/task/complete/{id}';
+  /** Path part for operation `taskControllerCompleted()` */
+  static readonly TaskControllerCompletedPath = '/api/v1/task/complete/{id}';
 
   /**
    * End point para completar a tarefa
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `taskControllerComplated()` instead.
+   * To access only the response body, use `taskControllerCompleted()` instead.
    *
    * This method doesn't expect any request body.
    */
-  taskControllerComplated$Response(params: TaskControllerComplated$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+  taskControllerCompleted$Response(params: TaskControllerCompleted$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 }>> {
-    return taskControllerComplated(this.http, this.rootUrl, params, context);
+    return taskControllerCompleted(this.http, this.rootUrl, params, context);
   }
 
   /**
    * End point para completar a tarefa
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `taskControllerComplated$Response()` instead.
+   * To access the full response (for headers, for example), `taskControllerCompleted$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  taskControllerComplated(params: TaskControllerComplated$Params, context?: HttpContext): Observable<{
+  taskControllerCompleted(params: TaskControllerCompleted$Params, context?: HttpContext): Observable<{
 }> {
-    return this.taskControllerComplated$Response(params, context).pipe(
+    return this.taskControllerCompleted$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `taskControllerListAllPage()` */
+  static readonly TaskControllerListAllPagePath = '/api/v1/task/page';
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerListAllPage$Response(params: TaskControllerListAllPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageTaskDto>> {
+    return taskControllerListAllPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerListAllPage(params: TaskControllerListAllPage$Params, context?: HttpContext): Observable<PageTaskDto> {
+    return this.taskControllerListAllPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageTaskDto>): PageTaskDto => r.body)
+    );
+  }
+
+  /** Path part for operation `taskControllerListIncomplete()` */
+  static readonly TaskControllerListIncompletePath = '/api/v1/task/incomplete';
+
+  /**
+   * lista tarefas incompletas
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskControllerListIncomplete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerListIncomplete$Response(params?: TaskControllerListIncomplete$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<TaskDto>>> {
+    return taskControllerListIncomplete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista tarefas incompletas
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskControllerListIncomplete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerListIncomplete(params?: TaskControllerListIncomplete$Params, context?: HttpContext): Observable<Array<TaskDto>> {
+    return this.taskControllerListIncomplete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<TaskDto>>): Array<TaskDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `taskControllerListIncompletePage()` */
+  static readonly TaskControllerListIncompletePagePath = '/api/v1/task/incomplete/page';
+
+  /**
+   * lista tarefas incompletas
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskControllerListIncompletePage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerListIncompletePage$Response(params: TaskControllerListIncompletePage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageTaskDto>> {
+    return taskControllerListIncompletePage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista tarefas incompletas
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskControllerListIncompletePage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerListIncompletePage(params: TaskControllerListIncompletePage$Params, context?: HttpContext): Observable<PageTaskDto> {
+    return this.taskControllerListIncompletePage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageTaskDto>): PageTaskDto => r.body)
     );
   }
 

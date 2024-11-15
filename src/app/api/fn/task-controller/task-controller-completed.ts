@@ -9,13 +9,13 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface TaskControllerComplated$Params {
+export interface TaskControllerCompleted$Params {
   id: number;
 }
 
-export function taskControllerComplated(http: HttpClient, rootUrl: string, params: TaskControllerComplated$Params, context?: HttpContext): Observable<StrictHttpResponse<{
+export function taskControllerCompleted(http: HttpClient, rootUrl: string, params: TaskControllerCompleted$Params, context?: HttpContext): Observable<StrictHttpResponse<{
 }>> {
-  const rb = new RequestBuilder(rootUrl, taskControllerComplated.PATH, 'post');
+  const rb = new RequestBuilder(rootUrl, taskControllerCompleted.PATH, 'post');
   if (params) {
     rb.path('id', params.id, {});
   }
@@ -31,4 +31,4 @@ export function taskControllerComplated(http: HttpClient, rootUrl: string, param
   );
 }
 
-taskControllerComplated.PATH = '/api/v1/task/complete/{id}';
+taskControllerCompleted.PATH = '/api/v1/task/complete/{id}';

@@ -11,12 +11,15 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { PagePersonListDto } from '../models/page-person-list-dto';
 import { personControllerCreate } from '../fn/person-controller/person-controller-create';
 import { PersonControllerCreate$Params } from '../fn/person-controller/person-controller-create';
 import { personControllerGetById } from '../fn/person-controller/person-controller-get-by-id';
 import { PersonControllerGetById$Params } from '../fn/person-controller/person-controller-get-by-id';
 import { personControllerListAll } from '../fn/person-controller/person-controller-list-all';
 import { PersonControllerListAll$Params } from '../fn/person-controller/person-controller-list-all';
+import { personControllerListAllPage } from '../fn/person-controller/person-controller-list-all-page';
+import { PersonControllerListAllPage$Params } from '../fn/person-controller/person-controller-list-all-page';
 import { personControllerRemove } from '../fn/person-controller/person-controller-remove';
 import { PersonControllerRemove$Params } from '../fn/person-controller/person-controller-remove';
 import { personControllerUpdate } from '../fn/person-controller/person-controller-update';
@@ -172,6 +175,35 @@ export class PersonControllerService extends BaseService {
   personControllerCreate(params: PersonControllerCreate$Params, context?: HttpContext): Observable<PersonDto> {
     return this.personControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<PersonDto>): PersonDto => r.body)
+    );
+  }
+
+  /** Path part for operation `personControllerListAllPage()` */
+  static readonly PersonControllerListAllPagePath = '/api/v1/person/page';
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `personControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  personControllerListAllPage$Response(params: PersonControllerListAllPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PagePersonListDto>> {
+    return personControllerListAllPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `personControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  personControllerListAllPage(params: PersonControllerListAllPage$Params, context?: HttpContext): Observable<PagePersonListDto> {
+    return this.personControllerListAllPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PagePersonListDto>): PagePersonListDto => r.body)
     );
   }
 

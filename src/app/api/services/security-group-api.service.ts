@@ -12,6 +12,7 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { GroupStatisticsDto } from '../models/group-statistics-dto';
+import { PageSecurityGroupDto } from '../models/page-security-group-dto';
 import { securityGroupControllerActivateGroup } from '../fn/security-group-api/security-group-controller-activate-group';
 import { SecurityGroupControllerActivateGroup$Params } from '../fn/security-group-api/security-group-controller-activate-group';
 import { securityGroupControllerCreate } from '../fn/security-group-api/security-group-controller-create';
@@ -32,6 +33,8 @@ import { securityGroupControllerInactivateGroup } from '../fn/security-group-api
 import { SecurityGroupControllerInactivateGroup$Params } from '../fn/security-group-api/security-group-controller-inactivate-group';
 import { securityGroupControllerListAll } from '../fn/security-group-api/security-group-controller-list-all';
 import { SecurityGroupControllerListAll$Params } from '../fn/security-group-api/security-group-controller-list-all';
+import { securityGroupControllerListAllPage } from '../fn/security-group-api/security-group-controller-list-all-page';
+import { SecurityGroupControllerListAllPage$Params } from '../fn/security-group-api/security-group-controller-list-all-page';
 import { securityGroupControllerRemove } from '../fn/security-group-api/security-group-controller-remove';
 import { SecurityGroupControllerRemove$Params } from '../fn/security-group-api/security-group-controller-remove';
 import { securityGroupControllerUpdate } from '../fn/security-group-api/security-group-controller-update';
@@ -335,6 +338,35 @@ export class SecurityGroupApiService extends BaseService {
   securityGroupControllerGetGroupStatistics(params?: SecurityGroupControllerGetGroupStatistics$Params, context?: HttpContext): Observable<Array<GroupStatisticsDto>> {
     return this.securityGroupControllerGetGroupStatistics$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<GroupStatisticsDto>>): Array<GroupStatisticsDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `securityGroupControllerListAllPage()` */
+  static readonly SecurityGroupControllerListAllPagePath = '/api/v1/groups/page';
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityGroupControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityGroupControllerListAllPage$Response(params: SecurityGroupControllerListAllPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageSecurityGroupDto>> {
+    return securityGroupControllerListAllPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityGroupControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityGroupControllerListAllPage(params: SecurityGroupControllerListAllPage$Params, context?: HttpContext): Observable<PageSecurityGroupDto> {
+    return this.securityGroupControllerListAllPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageSecurityGroupDto>): PageSecurityGroupDto => r.body)
     );
   }
 

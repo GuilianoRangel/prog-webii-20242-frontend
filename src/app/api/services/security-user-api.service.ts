@@ -11,6 +11,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { PageSecurityUserDto } from '../models/page-security-user-dto';
 import { securityUserControllerActivateUser } from '../fn/security-user-api/security-user-controller-activate-user';
 import { SecurityUserControllerActivateUser$Params } from '../fn/security-user-api/security-user-controller-activate-user';
 import { securityUserControllerCreate } from '../fn/security-user-api/security-user-controller-create';
@@ -31,6 +32,8 @@ import { securityUserControllerInitializeAdminDataUser } from '../fn/security-us
 import { SecurityUserControllerInitializeAdminDataUser$Params } from '../fn/security-user-api/security-user-controller-initialize-admin-data-user';
 import { securityUserControllerListAll } from '../fn/security-user-api/security-user-controller-list-all';
 import { SecurityUserControllerListAll$Params } from '../fn/security-user-api/security-user-controller-list-all';
+import { securityUserControllerListAllPage } from '../fn/security-user-api/security-user-controller-list-all-page';
+import { SecurityUserControllerListAllPage$Params } from '../fn/security-user-api/security-user-controller-list-all-page';
 import { securityUserControllerRemove } from '../fn/security-user-api/security-user-controller-remove';
 import { SecurityUserControllerRemove$Params } from '../fn/security-user-api/security-user-controller-remove';
 import { securityUserControllerUpdate } from '../fn/security-user-api/security-user-controller-update';
@@ -338,6 +341,35 @@ export class SecurityUserApiService extends BaseService {
   securityUserControllerGetGroupReport(params: SecurityUserControllerGetGroupReport$Params, context?: HttpContext): Observable<any> {
     return this.securityUserControllerGetGroupReport$Response(params, context).pipe(
       map((r: StrictHttpResponse<any>): any => r.body)
+    );
+  }
+
+  /** Path part for operation `securityUserControllerListAllPage()` */
+  static readonly SecurityUserControllerListAllPagePath = '/api/v1/user/page';
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityUserControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityUserControllerListAllPage$Response(params: SecurityUserControllerListAllPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageSecurityUserDto>> {
+    return securityUserControllerListAllPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityUserControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityUserControllerListAllPage(params: SecurityUserControllerListAllPage$Params, context?: HttpContext): Observable<PageSecurityUserDto> {
+    return this.securityUserControllerListAllPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageSecurityUserDto>): PageSecurityUserDto => r.body)
     );
   }
 

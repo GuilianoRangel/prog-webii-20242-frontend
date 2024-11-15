@@ -17,11 +17,14 @@ import { categoryControllerGetById } from '../fn/category-controller/category-co
 import { CategoryControllerGetById$Params } from '../fn/category-controller/category-controller-get-by-id';
 import { categoryControllerListAll } from '../fn/category-controller/category-controller-list-all';
 import { CategoryControllerListAll$Params } from '../fn/category-controller/category-controller-list-all';
+import { categoryControllerListAllPage } from '../fn/category-controller/category-controller-list-all-page';
+import { CategoryControllerListAllPage$Params } from '../fn/category-controller/category-controller-list-all-page';
 import { categoryControllerRemove } from '../fn/category-controller/category-controller-remove';
 import { CategoryControllerRemove$Params } from '../fn/category-controller/category-controller-remove';
 import { categoryControllerUpdate } from '../fn/category-controller/category-controller-update';
 import { CategoryControllerUpdate$Params } from '../fn/category-controller/category-controller-update';
 import { CategoryDto } from '../models/category-dto';
+import { PageCategoryDto } from '../models/page-category-dto';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryControllerService extends BaseService {
@@ -171,6 +174,35 @@ export class CategoryControllerService extends BaseService {
   categoryControllerCreate(params: CategoryControllerCreate$Params, context?: HttpContext): Observable<CategoryDto> {
     return this.categoryControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<CategoryDto>): CategoryDto => r.body)
+    );
+  }
+
+  /** Path part for operation `categoryControllerListAllPage()` */
+  static readonly CategoryControllerListAllPagePath = '/api/v1/category/page';
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoryControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoryControllerListAllPage$Response(params: CategoryControllerListAllPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageCategoryDto>> {
+    return categoryControllerListAllPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoryControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoryControllerListAllPage(params: CategoryControllerListAllPage$Params, context?: HttpContext): Observable<PageCategoryDto> {
+    return this.categoryControllerListAllPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageCategoryDto>): PageCategoryDto => r.body)
     );
   }
 

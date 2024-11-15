@@ -11,6 +11,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { PageStudentListDto } from '../models/page-student-list-dto';
 import { Student } from '../models/student';
 import { studentCrudControllerCreate } from '../fn/student-crud-controller/student-crud-controller-create';
 import { StudentCrudControllerCreate$Params } from '../fn/student-crud-controller/student-crud-controller-create';
@@ -18,6 +19,8 @@ import { studentCrudControllerGetById } from '../fn/student-crud-controller/stud
 import { StudentCrudControllerGetById$Params } from '../fn/student-crud-controller/student-crud-controller-get-by-id';
 import { studentCrudControllerListAll } from '../fn/student-crud-controller/student-crud-controller-list-all';
 import { StudentCrudControllerListAll$Params } from '../fn/student-crud-controller/student-crud-controller-list-all';
+import { studentCrudControllerListAllPage } from '../fn/student-crud-controller/student-crud-controller-list-all-page';
+import { StudentCrudControllerListAllPage$Params } from '../fn/student-crud-controller/student-crud-controller-list-all-page';
 import { studentCrudControllerListYesterdayRegisters } from '../fn/student-crud-controller/student-crud-controller-list-yesterday-registers';
 import { StudentCrudControllerListYesterdayRegisters$Params } from '../fn/student-crud-controller/student-crud-controller-list-yesterday-registers';
 import { studentCrudControllerRemove } from '../fn/student-crud-controller/student-crud-controller-remove';
@@ -204,6 +207,35 @@ export class StudentCrudControllerService extends BaseService {
   studentCrudControllerListYesterdayRegisters(params?: StudentCrudControllerListYesterdayRegisters$Params, context?: HttpContext): Observable<Array<Student>> {
     return this.studentCrudControllerListYesterdayRegisters$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<Student>>): Array<Student> => r.body)
+    );
+  }
+
+  /** Path part for operation `studentCrudControllerListAllPage()` */
+  static readonly StudentCrudControllerListAllPagePath = '/api/v1/crud-student/page';
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `studentCrudControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  studentCrudControllerListAllPage$Response(params: StudentCrudControllerListAllPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageStudentListDto>> {
+    return studentCrudControllerListAllPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * lista todos modelos paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `studentCrudControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  studentCrudControllerListAllPage(params: StudentCrudControllerListAllPage$Params, context?: HttpContext): Observable<PageStudentListDto> {
+    return this.studentCrudControllerListAllPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageStudentListDto>): PageStudentListDto => r.body)
     );
   }
 
