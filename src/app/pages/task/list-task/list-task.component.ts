@@ -1,6 +1,4 @@
-import {Component, model, OnInit, ViewChild} from '@angular/core';
-import {BaseComponent} from "../../../architecture/component/base.component";
-import {MatTableDataSource} from "@angular/material/table";
+import {Component, ViewChild} from '@angular/core';
 import {TaskDto} from "../../../api/models/task-dto";
 import {TaskPaths, TaskRoles} from "../task-routing.module";
 import {TaskControllerService} from "../../../api/services/task-controller.service";

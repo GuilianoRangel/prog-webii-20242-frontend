@@ -1,11 +1,5 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {Component} from '@angular/core';
 import {BaseComponent} from "../../../architecture/component/base.component";
-import {ActivatedRoute, Router} from "@angular/router";
-import {CrudActionService} from "../../../architecture/component/crud-action.service";
-import {MessageService} from "../../../architecture/message/message.service";
-import {ErrorService} from "../../../architecture/error.service";
-import {SecurityService} from "../../../architecture/security/security.service";
-import {FormBuilder} from "@angular/forms";
 import {CategoryDto} from "../../../api/models/category-dto";
 import {CategoryPaths, CategoryRoles} from "../category-routing.module";
 

@@ -3,11 +3,10 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {CrudAction} from "./curd-action";
 import {ChangeDetectorRef, inject, NgModule, OnDestroy, OnInit} from "@angular/core";
 import {CrudActionService} from "./crud-action.service";
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {MessageService} from "../message/message.service";
 import {ErrorService} from "../error.service";
 import {SecurityService} from "../security/security.service";
-import {CategoryDto} from "../../api/models/category-dto";
 
 @NgModule()
 export abstract class BaseComponent<MODEL> implements OnInit, OnDestroy {

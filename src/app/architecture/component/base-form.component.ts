@@ -1,15 +1,6 @@
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CrudAction} from "./curd-action";
-import {ChangeDetectorRef, inject, model, NgModule, OnDestroy, OnInit} from "@angular/core";
-import {CrudActionService} from "./crud-action.service";
-import {Observable, of, Subscription} from "rxjs";
-import {MessageService} from "../message/message.service";
-import {ErrorService} from "../error.service";
-import {SecurityService} from "../security/security.service";
-import {CategoryDto} from "../../api/models/category-dto";
-import {TaskDto} from "../../api/models/task-dto";
-import {MatTableDataSource} from "@angular/material/table";
+import {FormGroup, Validators} from "@angular/forms";
+import {NgModule} from "@angular/core";
+import {Observable, of} from "rxjs";
 import {BaseComponent} from "./base.component";
 import {GenericDto} from "../../api/models/generic-dto";
 import {HttpContext} from "@angular/common/http";

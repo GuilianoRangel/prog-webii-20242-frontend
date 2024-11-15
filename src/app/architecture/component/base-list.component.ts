@@ -1,18 +1,8 @@
-import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {CrudAction} from "./curd-action";
-import {AfterViewInit, ChangeDetectorRef, inject, model, NgModule, OnDestroy, OnInit, ViewChild} from "@angular/core";
-import {CrudActionService} from "./crud-action.service";
-import {merge, observable, Observable, of, startWith, Subscription, switchMap} from "rxjs";
-import {MessageService} from "../message/message.service";
-import {ErrorService} from "../error.service";
-import {SecurityService} from "../security/security.service";
-import {CategoryDto} from "../../api/models/category-dto";
-import {TaskDto} from "../../api/models/task-dto";
+import {AfterViewInit, NgModule} from "@angular/core";
+import {merge, Observable, of, startWith, switchMap} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {BaseComponent} from "./base.component";
 import {GenericDto} from "../../api/models/generic-dto";
-import {TaskControllerRemove$Params} from "../../api/fn/task-controller/task-controller-remove";
 import {HttpContext} from "@angular/common/http";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -184,7 +174,6 @@ export abstract class BaseListComponent<MODEL extends GenericDto> extends BaseCo
             return of(null);
           }),
           map((data) => {
-            console.log("pageData:",data);
             if (data == null ) return [];
 
             this.totalRows = data.totalElements || 0;
