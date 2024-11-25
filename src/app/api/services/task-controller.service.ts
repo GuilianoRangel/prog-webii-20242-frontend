@@ -12,6 +12,7 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { PageTaskDto } from '../models/page-task-dto';
+import { SearchField } from '../models/search-field';
 import { taskControllerCompleted } from '../fn/task-controller/task-controller-completed';
 import { TaskControllerCompleted$Params } from '../fn/task-controller/task-controller-completed';
 import { taskControllerCreate } from '../fn/task-controller/task-controller-create';
@@ -28,6 +29,12 @@ import { taskControllerListIncompletePage } from '../fn/task-controller/task-con
 import { TaskControllerListIncompletePage$Params } from '../fn/task-controller/task-controller-list-incomplete-page';
 import { taskControllerRemove } from '../fn/task-controller/task-controller-remove';
 import { TaskControllerRemove$Params } from '../fn/task-controller/task-controller-remove';
+import { taskControllerSearchFieldsAction } from '../fn/task-controller/task-controller-search-fields-action';
+import { TaskControllerSearchFieldsAction$Params } from '../fn/task-controller/task-controller-search-fields-action';
+import { taskControllerSearchFieldsActionPage } from '../fn/task-controller/task-controller-search-fields-action-page';
+import { TaskControllerSearchFieldsActionPage$Params } from '../fn/task-controller/task-controller-search-fields-action-page';
+import { taskControllerSearchFieldsList } from '../fn/task-controller/task-controller-search-fields-list';
+import { TaskControllerSearchFieldsList$Params } from '../fn/task-controller/task-controller-search-fields-list';
 import { taskControllerUpdate } from '../fn/task-controller/task-controller-update';
 import { TaskControllerUpdate$Params } from '../fn/task-controller/task-controller-update';
 import { TaskDto } from '../models/task-dto';
@@ -180,6 +187,93 @@ export class TaskControllerService extends BaseService {
   taskControllerCreate(params: TaskControllerCreate$Params, context?: HttpContext): Observable<TaskDto> {
     return this.taskControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<TaskDto>): TaskDto => r.body)
+    );
+  }
+
+  /** Path part for operation `taskControllerSearchFieldsList()` */
+  static readonly TaskControllerSearchFieldsListPath = '/api/v1/task/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerSearchFieldsList$Response(params?: TaskControllerSearchFieldsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SearchField>>> {
+    return taskControllerSearchFieldsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  taskControllerSearchFieldsList(params?: TaskControllerSearchFieldsList$Params, context?: HttpContext): Observable<Array<SearchField>> {
+    return this.taskControllerSearchFieldsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>): Array<SearchField> => r.body)
+    );
+  }
+
+  /** Path part for operation `taskControllerSearchFieldsAction()` */
+  static readonly TaskControllerSearchFieldsActionPath = '/api/v1/task/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskControllerSearchFieldsAction$Response(params: TaskControllerSearchFieldsAction$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<TaskDto>>> {
+    return taskControllerSearchFieldsAction(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskControllerSearchFieldsAction(params: TaskControllerSearchFieldsAction$Params, context?: HttpContext): Observable<Array<TaskDto>> {
+    return this.taskControllerSearchFieldsAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<TaskDto>>): Array<TaskDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `taskControllerSearchFieldsActionPage()` */
+  static readonly TaskControllerSearchFieldsActionPagePath = '/api/v1/task/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `taskControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskControllerSearchFieldsActionPage$Response(params: TaskControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageTaskDto>> {
+    return taskControllerSearchFieldsActionPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `taskControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  taskControllerSearchFieldsActionPage(params: TaskControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<PageTaskDto> {
+    return this.taskControllerSearchFieldsActionPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageTaskDto>): PageTaskDto => r.body)
     );
   }
 

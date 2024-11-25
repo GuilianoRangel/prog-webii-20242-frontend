@@ -21,10 +21,17 @@ import { categoryControllerListAllPage } from '../fn/category-controller/categor
 import { CategoryControllerListAllPage$Params } from '../fn/category-controller/category-controller-list-all-page';
 import { categoryControllerRemove } from '../fn/category-controller/category-controller-remove';
 import { CategoryControllerRemove$Params } from '../fn/category-controller/category-controller-remove';
+import { categoryControllerSearchFieldsAction } from '../fn/category-controller/category-controller-search-fields-action';
+import { CategoryControllerSearchFieldsAction$Params } from '../fn/category-controller/category-controller-search-fields-action';
+import { categoryControllerSearchFieldsActionPage } from '../fn/category-controller/category-controller-search-fields-action-page';
+import { CategoryControllerSearchFieldsActionPage$Params } from '../fn/category-controller/category-controller-search-fields-action-page';
+import { categoryControllerSearchFieldsList } from '../fn/category-controller/category-controller-search-fields-list';
+import { CategoryControllerSearchFieldsList$Params } from '../fn/category-controller/category-controller-search-fields-list';
 import { categoryControllerUpdate } from '../fn/category-controller/category-controller-update';
 import { CategoryControllerUpdate$Params } from '../fn/category-controller/category-controller-update';
 import { CategoryDto } from '../models/category-dto';
 import { PageCategoryDto } from '../models/page-category-dto';
+import { SearchField } from '../models/search-field';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryControllerService extends BaseService {
@@ -174,6 +181,93 @@ export class CategoryControllerService extends BaseService {
   categoryControllerCreate(params: CategoryControllerCreate$Params, context?: HttpContext): Observable<CategoryDto> {
     return this.categoryControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<CategoryDto>): CategoryDto => r.body)
+    );
+  }
+
+  /** Path part for operation `categoryControllerSearchFieldsList()` */
+  static readonly CategoryControllerSearchFieldsListPath = '/api/v1/category/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoryControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoryControllerSearchFieldsList$Response(params?: CategoryControllerSearchFieldsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SearchField>>> {
+    return categoryControllerSearchFieldsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoryControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoryControllerSearchFieldsList(params?: CategoryControllerSearchFieldsList$Params, context?: HttpContext): Observable<Array<SearchField>> {
+    return this.categoryControllerSearchFieldsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>): Array<SearchField> => r.body)
+    );
+  }
+
+  /** Path part for operation `categoryControllerSearchFieldsAction()` */
+  static readonly CategoryControllerSearchFieldsActionPath = '/api/v1/category/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoryControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoryControllerSearchFieldsAction$Response(params: CategoryControllerSearchFieldsAction$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CategoryDto>>> {
+    return categoryControllerSearchFieldsAction(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoryControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoryControllerSearchFieldsAction(params: CategoryControllerSearchFieldsAction$Params, context?: HttpContext): Observable<Array<CategoryDto>> {
+    return this.categoryControllerSearchFieldsAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<CategoryDto>>): Array<CategoryDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `categoryControllerSearchFieldsActionPage()` */
+  static readonly CategoryControllerSearchFieldsActionPagePath = '/api/v1/category/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoryControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoryControllerSearchFieldsActionPage$Response(params: CategoryControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageCategoryDto>> {
+    return categoryControllerSearchFieldsActionPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoryControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoryControllerSearchFieldsActionPage(params: CategoryControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<PageCategoryDto> {
+    return this.categoryControllerSearchFieldsActionPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageCategoryDto>): PageCategoryDto => r.body)
     );
   }
 
