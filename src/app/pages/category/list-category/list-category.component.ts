@@ -27,11 +27,19 @@ export class ListCategoryComponent extends BaseComponent<CategoryPaths> implemen
 
   }
 
+  showResult($event: any[]) {
+    this.confDataResult($event);
+  }
+
 
   private getData() {
     this.service.categoryControllerListAll().subscribe(data => {
-      this.dataSource = new MatTableDataSource<CategoryDto>(data || []);
+      this.confDataResult(data);
     });
+  }
+
+  private confDataResult(data: Array<CategoryDto>) {
+    this.dataSource = new MatTableDataSource<CategoryDto>(data || []);
   }
 
   confirmDelete(categoryDto: CategoryDto) {

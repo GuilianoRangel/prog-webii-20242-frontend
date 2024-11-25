@@ -1,5 +1,11 @@
 <section class="example-container" tabindex="0">
-  <mat-checkbox [(ngModel)]="tarefasPendentes" (ngModelChange)="changeTarefasPendentes()">Mostrar apenas tarefas pendentes</mat-checkbox>
+  <app-search-component
+    [controller]="service"
+    (onSearchResult)="showResult($event)"
+    [paginator]="paginator"
+    [matSort]="tableSort"
+  ></app-search-component>
+  <!--<mat-checkbox [(ngModel)]="tarefasPendentes" (ngModelChange)="changeTarefasPendentes()">Mostrar apenas tarefas pendentes</mat-checkbox>-->
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Position Column -->

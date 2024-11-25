@@ -7,6 +7,7 @@ import {FormCategoryComponent} from './form-category/form-category.component';
 import {RouterModule} from "@angular/router";
 import {categoryRoutes} from "./category-routing.module";
 import {SharedMaterialModule} from "../../architecture/shared-material/shared-material.module";
+import {SearchModule} from "../../architecture/search-module/search.module";
 
 
 @NgModule({
@@ -15,10 +16,11 @@ import {SharedMaterialModule} from "../../architecture/shared-material/shared-ma
     ListCategoryComponent,
     FormCategoryComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(categoryRoutes),
-    SharedMaterialModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(categoryRoutes),
+        SharedMaterialModule,
+        SearchModule
+    ]
 })
 export class CategoryModule { }
