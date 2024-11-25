@@ -12,6 +12,7 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { PageStudentListDto } from '../models/page-student-list-dto';
+import { SearchField } from '../models/search-field';
 import { Student } from '../models/student';
 import { studentCrudControllerCreate } from '../fn/student-crud-controller/student-crud-controller-create';
 import { StudentCrudControllerCreate$Params } from '../fn/student-crud-controller/student-crud-controller-create';
@@ -25,6 +26,12 @@ import { studentCrudControllerListYesterdayRegisters } from '../fn/student-crud-
 import { StudentCrudControllerListYesterdayRegisters$Params } from '../fn/student-crud-controller/student-crud-controller-list-yesterday-registers';
 import { studentCrudControllerRemove } from '../fn/student-crud-controller/student-crud-controller-remove';
 import { StudentCrudControllerRemove$Params } from '../fn/student-crud-controller/student-crud-controller-remove';
+import { studentCrudControllerSearchFieldsAction } from '../fn/student-crud-controller/student-crud-controller-search-fields-action';
+import { StudentCrudControllerSearchFieldsAction$Params } from '../fn/student-crud-controller/student-crud-controller-search-fields-action';
+import { studentCrudControllerSearchFieldsActionPage } from '../fn/student-crud-controller/student-crud-controller-search-fields-action-page';
+import { StudentCrudControllerSearchFieldsActionPage$Params } from '../fn/student-crud-controller/student-crud-controller-search-fields-action-page';
+import { studentCrudControllerSearchFieldsList } from '../fn/student-crud-controller/student-crud-controller-search-fields-list';
+import { StudentCrudControllerSearchFieldsList$Params } from '../fn/student-crud-controller/student-crud-controller-search-fields-list';
 import { studentCrudControllerUpdate } from '../fn/student-crud-controller/student-crud-controller-update';
 import { StudentCrudControllerUpdate$Params } from '../fn/student-crud-controller/student-crud-controller-update';
 import { StudentDto } from '../models/student-dto';
@@ -178,6 +185,93 @@ export class StudentCrudControllerService extends BaseService {
   studentCrudControllerCreate(params: StudentCrudControllerCreate$Params, context?: HttpContext): Observable<StudentDto> {
     return this.studentCrudControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<StudentDto>): StudentDto => r.body)
+    );
+  }
+
+  /** Path part for operation `studentCrudControllerSearchFieldsList()` */
+  static readonly StudentCrudControllerSearchFieldsListPath = '/api/v1/crud-student/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `studentCrudControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  studentCrudControllerSearchFieldsList$Response(params?: StudentCrudControllerSearchFieldsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SearchField>>> {
+    return studentCrudControllerSearchFieldsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `studentCrudControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  studentCrudControllerSearchFieldsList(params?: StudentCrudControllerSearchFieldsList$Params, context?: HttpContext): Observable<Array<SearchField>> {
+    return this.studentCrudControllerSearchFieldsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>): Array<SearchField> => r.body)
+    );
+  }
+
+  /** Path part for operation `studentCrudControllerSearchFieldsAction()` */
+  static readonly StudentCrudControllerSearchFieldsActionPath = '/api/v1/crud-student/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `studentCrudControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  studentCrudControllerSearchFieldsAction$Response(params: StudentCrudControllerSearchFieldsAction$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<StudentListDto>>> {
+    return studentCrudControllerSearchFieldsAction(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `studentCrudControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  studentCrudControllerSearchFieldsAction(params: StudentCrudControllerSearchFieldsAction$Params, context?: HttpContext): Observable<Array<StudentListDto>> {
+    return this.studentCrudControllerSearchFieldsAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<StudentListDto>>): Array<StudentListDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `studentCrudControllerSearchFieldsActionPage()` */
+  static readonly StudentCrudControllerSearchFieldsActionPagePath = '/api/v1/crud-student/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `studentCrudControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  studentCrudControllerSearchFieldsActionPage$Response(params: StudentCrudControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageStudentListDto>> {
+    return studentCrudControllerSearchFieldsActionPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `studentCrudControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  studentCrudControllerSearchFieldsActionPage(params: StudentCrudControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<PageStudentListDto> {
+    return this.studentCrudControllerSearchFieldsActionPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageStudentListDto>): PageStudentListDto => r.body)
     );
   }
 

@@ -13,6 +13,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { GroupStatisticsDto } from '../models/group-statistics-dto';
 import { PageSecurityGroupDto } from '../models/page-security-group-dto';
+import { SearchField } from '../models/search-field';
 import { securityGroupControllerActivateGroup } from '../fn/security-group-api/security-group-controller-activate-group';
 import { SecurityGroupControllerActivateGroup$Params } from '../fn/security-group-api/security-group-controller-activate-group';
 import { securityGroupControllerCreate } from '../fn/security-group-api/security-group-controller-create';
@@ -37,6 +38,12 @@ import { securityGroupControllerListAllPage } from '../fn/security-group-api/sec
 import { SecurityGroupControllerListAllPage$Params } from '../fn/security-group-api/security-group-controller-list-all-page';
 import { securityGroupControllerRemove } from '../fn/security-group-api/security-group-controller-remove';
 import { SecurityGroupControllerRemove$Params } from '../fn/security-group-api/security-group-controller-remove';
+import { securityGroupControllerSearchFieldsAction } from '../fn/security-group-api/security-group-controller-search-fields-action';
+import { SecurityGroupControllerSearchFieldsAction$Params } from '../fn/security-group-api/security-group-controller-search-fields-action';
+import { securityGroupControllerSearchFieldsActionPage } from '../fn/security-group-api/security-group-controller-search-fields-action-page';
+import { SecurityGroupControllerSearchFieldsActionPage$Params } from '../fn/security-group-api/security-group-controller-search-fields-action-page';
+import { securityGroupControllerSearchFieldsList } from '../fn/security-group-api/security-group-controller-search-fields-list';
+import { SecurityGroupControllerSearchFieldsList$Params } from '../fn/security-group-api/security-group-controller-search-fields-list';
 import { securityGroupControllerUpdate } from '../fn/security-group-api/security-group-controller-update';
 import { SecurityGroupControllerUpdate$Params } from '../fn/security-group-api/security-group-controller-update';
 import { SecurityGroupDto } from '../models/security-group-dto';
@@ -251,6 +258,93 @@ export class SecurityGroupApiService extends BaseService {
   securityGroupControllerCreate(params: SecurityGroupControllerCreate$Params, context?: HttpContext): Observable<SecurityGroupDto> {
     return this.securityGroupControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<SecurityGroupDto>): SecurityGroupDto => r.body)
+    );
+  }
+
+  /** Path part for operation `securityGroupControllerSearchFieldsList()` */
+  static readonly SecurityGroupControllerSearchFieldsListPath = '/api/v1/groups/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityGroupControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityGroupControllerSearchFieldsList$Response(params?: SecurityGroupControllerSearchFieldsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SearchField>>> {
+    return securityGroupControllerSearchFieldsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityGroupControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityGroupControllerSearchFieldsList(params?: SecurityGroupControllerSearchFieldsList$Params, context?: HttpContext): Observable<Array<SearchField>> {
+    return this.securityGroupControllerSearchFieldsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>): Array<SearchField> => r.body)
+    );
+  }
+
+  /** Path part for operation `securityGroupControllerSearchFieldsAction()` */
+  static readonly SecurityGroupControllerSearchFieldsActionPath = '/api/v1/groups/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityGroupControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityGroupControllerSearchFieldsAction$Response(params: SecurityGroupControllerSearchFieldsAction$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SecurityGroupDto>>> {
+    return securityGroupControllerSearchFieldsAction(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityGroupControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityGroupControllerSearchFieldsAction(params: SecurityGroupControllerSearchFieldsAction$Params, context?: HttpContext): Observable<Array<SecurityGroupDto>> {
+    return this.securityGroupControllerSearchFieldsAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SecurityGroupDto>>): Array<SecurityGroupDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `securityGroupControllerSearchFieldsActionPage()` */
+  static readonly SecurityGroupControllerSearchFieldsActionPagePath = '/api/v1/groups/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityGroupControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityGroupControllerSearchFieldsActionPage$Response(params: SecurityGroupControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageSecurityGroupDto>> {
+    return securityGroupControllerSearchFieldsActionPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityGroupControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityGroupControllerSearchFieldsActionPage(params: SecurityGroupControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<PageSecurityGroupDto> {
+    return this.securityGroupControllerSearchFieldsActionPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageSecurityGroupDto>): PageSecurityGroupDto => r.body)
     );
   }
 

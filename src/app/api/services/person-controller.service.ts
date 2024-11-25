@@ -22,10 +22,17 @@ import { personControllerListAllPage } from '../fn/person-controller/person-cont
 import { PersonControllerListAllPage$Params } from '../fn/person-controller/person-controller-list-all-page';
 import { personControllerRemove } from '../fn/person-controller/person-controller-remove';
 import { PersonControllerRemove$Params } from '../fn/person-controller/person-controller-remove';
+import { personControllerSearchFieldsAction } from '../fn/person-controller/person-controller-search-fields-action';
+import { PersonControllerSearchFieldsAction$Params } from '../fn/person-controller/person-controller-search-fields-action';
+import { personControllerSearchFieldsActionPage } from '../fn/person-controller/person-controller-search-fields-action-page';
+import { PersonControllerSearchFieldsActionPage$Params } from '../fn/person-controller/person-controller-search-fields-action-page';
+import { personControllerSearchFieldsList } from '../fn/person-controller/person-controller-search-fields-list';
+import { PersonControllerSearchFieldsList$Params } from '../fn/person-controller/person-controller-search-fields-list';
 import { personControllerUpdate } from '../fn/person-controller/person-controller-update';
 import { PersonControllerUpdate$Params } from '../fn/person-controller/person-controller-update';
 import { PersonDto } from '../models/person-dto';
 import { PersonListDto } from '../models/person-list-dto';
+import { SearchField } from '../models/search-field';
 
 @Injectable({ providedIn: 'root' })
 export class PersonControllerService extends BaseService {
@@ -175,6 +182,93 @@ export class PersonControllerService extends BaseService {
   personControllerCreate(params: PersonControllerCreate$Params, context?: HttpContext): Observable<PersonDto> {
     return this.personControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<PersonDto>): PersonDto => r.body)
+    );
+  }
+
+  /** Path part for operation `personControllerSearchFieldsList()` */
+  static readonly PersonControllerSearchFieldsListPath = '/api/v1/person/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `personControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  personControllerSearchFieldsList$Response(params?: PersonControllerSearchFieldsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SearchField>>> {
+    return personControllerSearchFieldsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `personControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  personControllerSearchFieldsList(params?: PersonControllerSearchFieldsList$Params, context?: HttpContext): Observable<Array<SearchField>> {
+    return this.personControllerSearchFieldsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>): Array<SearchField> => r.body)
+    );
+  }
+
+  /** Path part for operation `personControllerSearchFieldsAction()` */
+  static readonly PersonControllerSearchFieldsActionPath = '/api/v1/person/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `personControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  personControllerSearchFieldsAction$Response(params: PersonControllerSearchFieldsAction$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PersonListDto>>> {
+    return personControllerSearchFieldsAction(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `personControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  personControllerSearchFieldsAction(params: PersonControllerSearchFieldsAction$Params, context?: HttpContext): Observable<Array<PersonListDto>> {
+    return this.personControllerSearchFieldsAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PersonListDto>>): Array<PersonListDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `personControllerSearchFieldsActionPage()` */
+  static readonly PersonControllerSearchFieldsActionPagePath = '/api/v1/person/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `personControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  personControllerSearchFieldsActionPage$Response(params: PersonControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PagePersonListDto>> {
+    return personControllerSearchFieldsActionPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `personControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  personControllerSearchFieldsActionPage(params: PersonControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<PagePersonListDto> {
+    return this.personControllerSearchFieldsActionPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PagePersonListDto>): PagePersonListDto => r.body)
     );
   }
 

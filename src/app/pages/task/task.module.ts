@@ -9,6 +9,7 @@ import {taskRoutes} from "./task-routing.module";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {ArchitectureModule} from "../../architecture/architecture.module";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {SearchModule} from "../../architecture/search-module/search.module";
 
 
 @NgModule({
@@ -17,15 +18,16 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/m
     ListTaskComponent,
     FormTaskComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(taskRoutes),
-    SharedMaterialModule,
-    MatCheckbox,
-    ArchitectureModule,
-    MatDatepicker,
-    MatDatepickerToggle,
-    MatDatepickerInput
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(taskRoutes),
+        SharedMaterialModule,
+        MatCheckbox,
+        ArchitectureModule,
+        MatDatepicker,
+        MatDatepickerToggle,
+        MatDatepickerInput,
+        SearchModule
+    ]
 })
 export class TaskModule { }

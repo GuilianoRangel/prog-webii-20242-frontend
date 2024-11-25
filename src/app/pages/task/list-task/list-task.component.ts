@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {BaseListComponent, BaseListComponentConfig} from "../../../architecture/component/base-list.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {SearchComponent} from "../../../architecture/search-module/seach-component/search.component";
 
 @Component({
   selector: 'app-list-task',
@@ -20,14 +21,17 @@ export class ListTaskComponent  extends BaseListComponent<TaskDto> {
 
   @ViewChild(MatSort) tableSort!: MatSort;
 
+  @ViewChild(SearchComponent) searchComponent!: SearchComponent;
+
   getComponentConfigs(): BaseListComponentConfig<TaskDto> {
     return {
-      METHOD_LIST: ():Observable<Array<TaskDto>> => this.service.taskControllerListAll(),
-      METHOD_LIST_PAGED: (params, context) => this.service.taskControllerListAllPage(params, context),
+      //METHOD_LIST: ():Observable<Array<TaskDto>> => this.service.taskControllerListAll(),
+      //METHOD_LIST_PAGED: (params, context) => this.service.taskControllerListAllPage(params, context),
       METHOD_REMOVE: (params, context) => this.service.taskControllerRemove(params, context),
       DELETE_ROLE: TaskRoles.DELETE,
       ENTITY_NAME_LABEL: 'Task',
       UPDATE_ROLE: TaskRoles.UPDATE,
+      USE_EXTERNAL_SOURCE: true
     };
   }
 
@@ -74,6 +78,13 @@ export class ListTaskComponent  extends BaseListComponent<TaskDto> {
         (params, context) => this.service.taskControllerListAllPage(params, context)
       );
       this.paginator.page.emit();
+    }
+  }
+
+  override ngAfterViewInit() {
+    super.ngAfterViewInit();
+    if(this.tableSort){
+      this.searchComponent.matSort = this.tableSort;
     }
   }
 }

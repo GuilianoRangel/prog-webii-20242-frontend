@@ -12,6 +12,7 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
 import { PageSecurityUserDto } from '../models/page-security-user-dto';
+import { SearchField } from '../models/search-field';
 import { securityUserControllerActivateUser } from '../fn/security-user-api/security-user-controller-activate-user';
 import { SecurityUserControllerActivateUser$Params } from '../fn/security-user-api/security-user-controller-activate-user';
 import { securityUserControllerCreate } from '../fn/security-user-api/security-user-controller-create';
@@ -36,6 +37,12 @@ import { securityUserControllerListAllPage } from '../fn/security-user-api/secur
 import { SecurityUserControllerListAllPage$Params } from '../fn/security-user-api/security-user-controller-list-all-page';
 import { securityUserControllerRemove } from '../fn/security-user-api/security-user-controller-remove';
 import { SecurityUserControllerRemove$Params } from '../fn/security-user-api/security-user-controller-remove';
+import { securityUserControllerSearchFieldsAction } from '../fn/security-user-api/security-user-controller-search-fields-action';
+import { SecurityUserControllerSearchFieldsAction$Params } from '../fn/security-user-api/security-user-controller-search-fields-action';
+import { securityUserControllerSearchFieldsActionPage } from '../fn/security-user-api/security-user-controller-search-fields-action-page';
+import { SecurityUserControllerSearchFieldsActionPage$Params } from '../fn/security-user-api/security-user-controller-search-fields-action-page';
+import { securityUserControllerSearchFieldsList } from '../fn/security-user-api/security-user-controller-search-fields-list';
+import { SecurityUserControllerSearchFieldsList$Params } from '../fn/security-user-api/security-user-controller-search-fields-list';
 import { securityUserControllerUpdate } from '../fn/security-user-api/security-user-controller-update';
 import { SecurityUserControllerUpdate$Params } from '../fn/security-user-api/security-user-controller-update';
 import { securityUserControllerValidateLogin } from '../fn/security-user-api/security-user-controller-validate-login';
@@ -254,6 +261,93 @@ export class SecurityUserApiService extends BaseService {
   securityUserControllerCreate(params: SecurityUserControllerCreate$Params, context?: HttpContext): Observable<SecurityUserDto> {
     return this.securityUserControllerCreate$Response(params, context).pipe(
       map((r: StrictHttpResponse<SecurityUserDto>): SecurityUserDto => r.body)
+    );
+  }
+
+  /** Path part for operation `securityUserControllerSearchFieldsList()` */
+  static readonly SecurityUserControllerSearchFieldsListPath = '/api/v1/user/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityUserControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityUserControllerSearchFieldsList$Response(params?: SecurityUserControllerSearchFieldsList$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SearchField>>> {
+    return securityUserControllerSearchFieldsList(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityUserControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  securityUserControllerSearchFieldsList(params?: SecurityUserControllerSearchFieldsList$Params, context?: HttpContext): Observable<Array<SearchField>> {
+    return this.securityUserControllerSearchFieldsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>): Array<SearchField> => r.body)
+    );
+  }
+
+  /** Path part for operation `securityUserControllerSearchFieldsAction()` */
+  static readonly SecurityUserControllerSearchFieldsActionPath = '/api/v1/user/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityUserControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityUserControllerSearchFieldsAction$Response(params: SecurityUserControllerSearchFieldsAction$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SecurityUserDto>>> {
+    return securityUserControllerSearchFieldsAction(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityUserControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityUserControllerSearchFieldsAction(params: SecurityUserControllerSearchFieldsAction$Params, context?: HttpContext): Observable<Array<SecurityUserDto>> {
+    return this.securityUserControllerSearchFieldsAction$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<SecurityUserDto>>): Array<SecurityUserDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `securityUserControllerSearchFieldsActionPage()` */
+  static readonly SecurityUserControllerSearchFieldsActionPagePath = '/api/v1/user/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `securityUserControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityUserControllerSearchFieldsActionPage$Response(params: SecurityUserControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<StrictHttpResponse<PageSecurityUserDto>> {
+    return securityUserControllerSearchFieldsActionPage(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `securityUserControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  securityUserControllerSearchFieldsActionPage(params: SecurityUserControllerSearchFieldsActionPage$Params, context?: HttpContext): Observable<PageSecurityUserDto> {
+    return this.securityUserControllerSearchFieldsActionPage$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageSecurityUserDto>): PageSecurityUserDto => r.body)
     );
   }
 
